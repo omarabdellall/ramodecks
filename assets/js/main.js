@@ -97,6 +97,7 @@
 
   if ('IntersectionObserver' in window) new IntersectionObserver((es) => { playerOnScreen = es[0].isIntersecting; syncMini(); }).observe(player);
 
+  let tries = 0;
   function loadSC() {
     if (loadSC.done) return;
     loadSC.done = true;
@@ -115,6 +116,7 @@
       const E = SC.Widget.Events;
       widget.bind(E.READY, () => {
         ready = true;
+        $('#plNote').hidden = true;
         widget.getDuration((d) => {
           dur = d;
           tDur.textContent = fmt(d);
@@ -129,7 +131,16 @@
       widget.bind(E.PLAY_PROGRESS, (e) => paint(e.currentPosition));
     };
     document.head.appendChild(s);
-    setTimeout(() => { if (!ready) $('#plNote').hidden = false; }, 9000);
+    setTimeout(() => {
+      if (ready) return;
+      $('#plNote').hidden = false;
+      if (tries < 2) {              // slow start: rebuild the hidden player once and try again
+        tries++;
+        loadSC.done = false;
+        $('#scHost').innerHTML = '';
+        loadSC();
+      }
+    }, 9000);
   }
 
   function toggle(fromHero) {

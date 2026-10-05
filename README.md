@@ -10,7 +10,19 @@ visuals/              wordmark SVG/PNG, LED banner, square + story art, QR codes
 _build/               the scripts that made everything (Jekyll ignores this folder on GitHub Pages)
 ```
 
-## Deploy on GitHub Pages (about 5 minutes)
+## Live site
+
+**https://omarabdellall.github.io/ramodecks/** (repo: `github.com/omarabdellall/ramodecks`). Send Japanese promoters `https://omarabdellall.github.io/ramodecks/?lang=ja`.
+
+**To update the site:** edit the files in this folder, then run
+
+```
+git add -A && git commit -m "Update" && git push
+```
+
+GitHub rebuilds in about a minute. Anything in `_build/` is not published (GitHub Pages skips folders that start with an underscore).
+
+## Deploy on GitHub Pages (how it was set up)
 
 1. Create a **public** repo on GitHub, for example `ramo`.
 2. Upload everything in this folder to the repo root (drag the contents into GitHub's web uploader, or `git init`, `git add .`, `git commit`, `git push`).
